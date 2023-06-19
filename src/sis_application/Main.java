@@ -1,4 +1,4 @@
-package application;
+package sis_application;
 	
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,8 +12,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root2 = new BorderPane();
 			Parent root = FXMLLoader.load(getClass().getResource("SceneFXML.fxml"));
+			BorderPane root2 = new BorderPane();
 			Scene scene = new Scene(root,920,600);
 			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
