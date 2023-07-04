@@ -57,21 +57,35 @@ public class SceneFXMLController implements Initializable{
 
     @FXML
     private TextField tfPhone;
-
+    
+    @FXML
+    private Label lblStatus;
+    
     @FXML
     void handleButtonAction(ActionEvent event) {
 		System.out.println("Button is clicked");
-		Label label = new Label();
-		label.setText("Hello Java");
-		if(event.getSource() == btnInsert) {
-			insertRecord();
-		}else if(event.getSource() == btnUpdate) {
-			updateRecord();
-		}else if(event.getSource() == btnDelete) {
-			deleteRecord();
-		}
+		try {
+//			Label label = new Label();
+//			label.setText("Hello Java");
+			if(event.getSource() == btnInsert) {
+				insertRecord();
+				System.out.println("Data Inserted Successfully");
+				lblStatus.setText("Data Inserted Successfully");
+			}else if(event.getSource() == btnUpdate) {
+				updateRecord();
+				System.out.println("Data Updated Successfully");
+				lblStatus.setText("Data Updated Successfully");
+			}else if(event.getSource() == btnDelete) {
+				deleteRecord();
+				System.out.println("Data Deleted Successfully");
+				lblStatus.setText("Data Deleted Successfully");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}	
     }
 	
+   
     public void initialize(URL url, ResourceBundle rb) {
     	showStudent();
     }
@@ -138,11 +152,6 @@ public class SceneFXMLController implements Initializable{
             showStudent();
     	}
     
-//    	private void updateRecord(){
-//    		String query = "UPDATE student SET name = '" + tfName.getText() + "', email = '" + tfEmail.getText() +"', phone = '" + tfPhone.getText() +"' WHERE id = " + tfId.getText() + "";
-//    		executeQuery(query);
-//    		showStudent();
-//    	}
     	private void updateRecord() {
             try {
             	Connection conn = getConnection();
@@ -159,11 +168,7 @@ public class SceneFXMLController implements Initializable{
             }
             showStudent();
         }
-//    	private void deleteRecord(){
-//    		String query = "DELETE FROM student WHERE id = " + tfId.getText() + "";
-//    		executeQuery(query);
-//    		showStudent();
-//    	}
+    	
     	private void deleteRecord() {
             try{
             	Connection conn = getConnection();

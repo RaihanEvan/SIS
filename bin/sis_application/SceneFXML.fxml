@@ -99,5 +99,9 @@
             <DropShadow />
          </effect>
       </TableView>
+      <Label fx:id="lblStatus" layoutX="188.0" layoutY="394.0" prefHeight="53.0" prefWidth="245.0" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font></Label>      
    </children>
 </AnchorPane>
