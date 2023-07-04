@@ -4,11 +4,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -52,6 +57,25 @@ public class SceneFXMLController implements Initializable {
     @FXML
     private Label lblStatus;
 
+    @FXML
+    private void openOwnerInfo(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("OwnerInfo.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage
+            Stage ownerInfoStage = new Stage();
+            ownerInfoStage.setTitle("Owner Information");
+            ownerInfoStage.setScene(new Scene(root));
+            
+            // Show the stage
+            ownerInfoStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    
     private StudentDAO studentDAO;
 
     @Override
