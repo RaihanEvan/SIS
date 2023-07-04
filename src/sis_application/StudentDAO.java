@@ -80,4 +80,20 @@ public class StudentDAO {
         }
         return false;
     }
+    
+    public boolean checkStudentExists(int studentId) {
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM student WHERE id = ?")) {
+            stmt.setInt(1, studentId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    return count > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

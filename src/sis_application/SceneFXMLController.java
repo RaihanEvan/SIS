@@ -77,6 +77,11 @@ public class SceneFXMLController implements Initializable {
         String email = tfEmail.getText();
         String phone = tfPhone.getText();
         Student student = new Student(id, name, email, phone);
+        boolean exists = studentDAO.checkStudentExists(id);
+        if (exists) {
+            showAlert(Alert.AlertType.ERROR, "Insert Error", "Student with ID " + id + " already exists");
+            return;
+        }
         boolean success = studentDAO.insertStudent(student);
         if (success) {
             showStudent();
