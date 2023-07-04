@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
@@ -75,21 +76,26 @@ public class SceneFXMLController implements Initializable{
     	showStudent();
     }
     
-    public Connection getConnection() {
+    public Connection getConnection() throws SQLException {
     	Connection conn = null;
     	try {
     		Class.forName("com.mysql.cj.jdbc.Driver"); 
     		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/students","root","");
     		System.out.println("DB Connected");
-        	return conn;
     	}catch(Exception e) {
     		System.out.println("Error: "+e.getMessage());
-    		return null;
+//    		return null;
     	}
+    	return conn;
     }
     	public ObservableList<Student> getStudentList(){
     		ObservableList<Student> studentList = FXCollections.observableArrayList();
-    		Connection conn = getConnection();
+    		Connection conn = null;
+			try {
+				conn = getConnection();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
     		String query = "SELECT * FROM student";
     		Statement st;
     		ResultSet rs;
@@ -117,22 +123,67 @@ public class SceneFXMLController implements Initializable{
     	}
     
     	private void insertRecord(){
-    		String query = "INSERT INTO student VALUES (" + tfId.getText() + ",'" + tfName.getText() + "','" + tfEmail.getText() +"','" + tfPhone.getText() +"')";
-    		executeQuery(query);
-    		showStudent();
+    		try {
+    			Connection conn = getConnection();
+    			Statement stmt = conn.createStatement();
+    	        int id = Integer.parseInt(tfId.getText());
+    	        String name = tfName.getText();
+    	        String email = tfEmail.getText();
+    	        String phone = tfPhone.getText();
+    	        String query = "INSERT INTO student VALUES (" + id + ",'" + name + "','" + email + "','" + phone + "')";
+    	        stmt.executeUpdate(query);
+    		}catch (SQLException e) {
+                e.printStackTrace();
+            }
+            showStudent();
     	}
-    	private void updateRecord(){
-    		String query = "UPDATE student SET name = '" + tfName.getText() + "', email = '" + tfEmail.getText() +"', phone = '" + tfPhone.getText() +"' WHERE id = " + tfId.getText() + "";
-    		executeQuery(query);
-    		showStudent();
-    	}
-    	private void deleteRecord(){
-    		String query = "DELETE FROM student WHERE id = " + tfId.getText() + "";
-    		executeQuery(query);
-    		showStudent();
-    	}
+    
+//    	private void updateRecord(){
+//    		String query = "UPDATE student SET name = '" + tfName.getText() + "', email = '" + tfEmail.getText() +"', phone = '" + tfPhone.getText() +"' WHERE id = " + tfId.getText() + "";
+//    		executeQuery(query);
+//    		showStudent();
+//    	}
+    	private void updateRecord() {
+            try {
+            	Connection conn = getConnection();
+                Statement stmt = conn.createStatement();
+                int id = Integer.parseInt(tfId.getText());
+                String name = tfName.getText();
+                String email = tfEmail.getText();
+                String phone = tfPhone.getText();
+
+                String query = "UPDATE student SET name = '" + name + "', email = '" + email + "', phone = '" + phone + "' WHERE id = " + id;
+                stmt.executeUpdate(query);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            showStudent();
+        }
+//    	private void deleteRecord(){
+//    		String query = "DELETE FROM student WHERE id = " + tfId.getText() + "";
+//    		executeQuery(query);
+//    		showStudent();
+//    	}
+    	private void deleteRecord() {
+            try{
+            	Connection conn = getConnection();
+                Statement stmt = conn.createStatement();
+                int id = Integer.parseInt(tfId.getText());
+                String query = "DELETE FROM student WHERE id = " + id;
+                stmt.executeUpdate(query);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            showStudent();
+        }
+    	
     	private void executeQuery(String query) {
-    		Connection conn = getConnection();
+    		Connection conn = null;
+			try {
+				conn = getConnection();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
     		Statement st;
     		try {
     			st = conn.createStatement();
