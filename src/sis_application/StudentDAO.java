@@ -1,8 +1,15 @@
 package sis_application;
 
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class StudentDAO {
     private Connection getConnection() throws SQLException {
@@ -18,7 +25,8 @@ public class StudentDAO {
     }
 
     public List<Student> getAllStudents() {
-        List<Student> studentList = new ArrayList<>();
+    	ObservableList<Student> studentList = FXCollections.observableArrayList();
+//        List<Student> studentList = new ArrayList<>();
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT * FROM student")) {
