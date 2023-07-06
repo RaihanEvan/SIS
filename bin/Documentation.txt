@@ -1,0 +1,25 @@
+StudentDAO Class:
+The StudentDAO class is responsible for handling database operations related to the Student entity.
+It provides methods to perform CRUD (Create, Read, Update, Delete) operations on the student table in the database.
+The class establishes a database connection using JDBC and executes SQL queries to interact with the database.
+Methods in the StudentDAO class:
+getConnection(): Establishes a database connection using the JDBC driver and returns a Connection object.
+getStudentList(): Retrieves a list of all students from the database and returns it as an ObservableList<Student>.
+insertStudent(Student student): Inserts a new student record into the database using the provided Student object. It returns a boolean value indicating the success or failure of the insertion.
+updateStudent(Student student): Updates an existing student record in the database with the data from the provided Student object. It returns a boolean value indicating the success or failure of the update.
+deleteStudent(int studentId): Deletes a student record from the database based on the provided student ID. It returns a boolean value indicating the success or failure of the deletion.
+checkStudentExists(int studentId): Checks if a student with the given ID already exists in the database. It returns true if the student exists, and false otherwise.
+SceneFXMLController Class:
+The SceneFXMLController class serves as the controller for the FXML file that defines the GUI of the application.
+It handles the user interactions and performs necessary actions based on those interactions, such as inserting, updating, or deleting student records.
+The class utilizes the StudentDAO class to interact with the database and retrieve or modify student data.
+Methods in the SceneFXMLController class:
+handleButtonAction(ActionEvent event): Handles button clicks in the GUI. It checks the source of the event and performs the corresponding action, such as inserting, updating, or deleting a student record.
+initialize(URL url, ResourceBundle rb): Initializes the controller and sets up the initial state of the GUI. It calls the showStudent() method to populate the TableView with student data.
+showStudent(): Retrieves the student data from the database using the StudentDAO class and displays it in the TableView.
+insertRecord(): Retrieves the data from the input fields in the GUI, creates a new Student object, and inserts it into the database using the StudentDAO class.
+updateRecord(): Retrieves the data from the input fields in the GUI, creates a new Student object, and updates the corresponding student record in the database using the StudentDAO class.
+deleteRecord(): Retrieves the student ID from the input field in the GUI and deletes the corresponding student record from the database using the StudentDAO class.
+executeQuery(String query): Executes the provided SQL query on the database using the StudentDAO class.
+handleMouseAction(MouseEvent event): Handles mouse clicks on the TableView rows. It retrieves the selected student's data and populates the input fields in the GUI for editing or deletion.
+These classes work together to provide a graphical user interface for managing student data and interact with the underlying database. The StudentDAO class handles the database operations, while the SceneFXMLController class manages the GUI and user interactions.

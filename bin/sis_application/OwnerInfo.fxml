@@ -9,7 +9,7 @@
 <VBox prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #808080;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sis_application.OwnerInfoController">
    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
       <image>
-         <Image url="@../../../../Downloads/ivan.jpg" />
+         <Image url="@\C:\Users\User\eclipse-workspace\SIS\src\resources\img\ivan.jpg" />
       </image>
    </ImageView>
     <Label graphicTextGap="9.0" lineSpacing="6.0" text="Owner Name: Raihan Evan" textFill="#00ffdf">
