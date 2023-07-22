@@ -11,10 +11,9 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class StudentDAO {
+public class StudentDAO {  //Handles DB Operations, CRUD Operations, SQL query executions
 	
-	//DB CONNECTION
-	
+	//JDBC CONNECTION
     private Connection getConnection() throws SQLException {
         Connection conn = null;
         try {
@@ -28,7 +27,6 @@ public class StudentDAO {
     }
 
     //READ OPERATION
-    
     public List<Student> getAllStudents() {
     	ObservableList<Student> studentList = FXCollections.observableArrayList();
 //        List<Student> studentList = new ArrayList<>();
@@ -53,7 +51,6 @@ public class StudentDAO {
     }
 
     //CREATE OPERATION
-    
     public boolean insertStudent(Student student) {
         String query = "INSERT INTO student (id, name, email, phone) VALUES (?, ?, ?, ?)";
         try{
@@ -73,7 +70,6 @@ public class StudentDAO {
     }
 
     //UPDATE OPERATION
-    
     public boolean updateStudent(Student student) {
         String query = "UPDATE student SET name = ?, email = ?, phone = ? WHERE id = ?";
         try{
@@ -93,7 +89,6 @@ public class StudentDAO {
     }
     
     //DELETE OPERATION
-    
     public boolean deleteStudent(int id) {
         String query = "DELETE FROM student WHERE id = ?";
         try{
@@ -109,10 +104,10 @@ public class StudentDAO {
     }
     
     //Duplicate student check
-    
     public boolean checkStudentExists(int studentId) {
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM student WHERE id = ?")) {
+        try{
+        	Connection conn = getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM student WHERE id = ?");
             stmt.setInt(1, studentId);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {

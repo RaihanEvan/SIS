@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SceneFXMLController implements Initializable {
+public class SceneFXMLController implements Initializable {  	//Defines the user interface and manages user actions using DAO class
     @FXML
     private Button btnDelete;
 
